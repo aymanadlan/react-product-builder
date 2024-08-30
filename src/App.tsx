@@ -1,21 +1,36 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { formInputList, ProductList } from "./components/data";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
+import { IProduct } from "./components/interfaces";
 
 const App = () => {
-  /* ---- STATE---- */
+  const [product, setProduct] = useState<IProduct>({
+    title: "",
+    description: "",
+    imageURL: "",
+    price: "",
+    colors: [],
+    category: {
+      name: "",
+      imageURL: "",
+    },
+  });
   const [isOpen, setIsOpen] = useState(false);
 
-  function openModal() {
-    setIsOpen(true);
-  }
+  /* ---- HANDLER---- */
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target;
 
-  function closeModal() {
-    setIsOpen(false);
-  }
+    setProduct({
+      ...product,
+      [name]: value,
+    });
+  };
 
   /* ---- RENDER---- */
   const renderProductList = ProductList.map((product) => (
@@ -25,7 +40,13 @@ const App = () => {
   const renderFormInputList = formInputList.map((input) => (
     <div className="flex flex-col ">
       <label htmlFor={input.id}>{input.label}</label>
-      <Input id={input.id} type={input.type} name={input.name} />
+      <Input
+        id={input.id}
+        type={input.type}
+        name={input.name}
+        value={product[input.name]}
+        onChange={onChangeHandler}
+      />
     </div>
   ));
 
@@ -49,7 +70,7 @@ const App = () => {
         {renderProductList}
       </div>
       <Modal isOpen={isOpen} closeModal={closeModal} title="ADD A NEW PRODUCT">
-        <div className="space-y-3">
+        <form className="space-y-3">
           {renderFormInputList}
           <div className="flex items-center space-x-3 mt-4">
             <Button
@@ -66,7 +87,7 @@ const App = () => {
               Cancel
             </Button>
           </div>
-        </div>
+        </form>
       </Modal>
     </main>
   );
