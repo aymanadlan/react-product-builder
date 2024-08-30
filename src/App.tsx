@@ -1,13 +1,14 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { formInputList, ProductList } from "./components/data";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
 import { IProduct } from "./components/interfaces";
+import { productValidation } from "./validation";
 
 const App = () => {
-  const [product, setProduct] = useState<IProduct>({
+  const defaultProductObject = {
     title: "",
     description: "",
     imageURL: "",
@@ -17,7 +18,8 @@ const App = () => {
       name: "",
       imageURL: "",
     },
-  });
+  };
+  const [product, setProduct] = useState<IProduct>(defaultProductObject);
   const [isOpen, setIsOpen] = useState(false);
 
   /* ---- HANDLER---- */
@@ -32,13 +34,49 @@ const App = () => {
     });
   };
 
+  const onCancel = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+
+    setProduct(defaultProductObject);
+    closeModal();
+  };
+
+  const onSubmitHandler = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+
+    const { title, description, imageURL, price } = product;
+
+    const errors = productValidation({
+      title: title,
+      description: description,
+      imageURL: imageURL,
+      price: price,
+    });
+
+    //console.log(errors);
+
+    //** Check if any properity has a value of "" & check if all properities have a value of "" */
+    const hasErrorMessage =
+      !Object.values(errors).some((value) => value === "") ||
+      !Object.values(errors).every((value) => value === "");
+
+    console.log(errors);
+    console.log(hasErrorMessage);
+
+    if (hasErrorMessage) {
+      return;
+    }
+
+    console.log("SEND THIS PRODUCT TO OUR SERVER");
+  };
+
   /* ---- RENDER---- */
   const renderProductList = ProductList.map((product) => (
     <ProductCard key={product.id} product={product} />
   ));
 
   const renderFormInputList = formInputList.map((input) => (
-    <div className="flex flex-col ">
+    <div className="flex flex-col " key={input.id}>
       <label htmlFor={input.id}>{input.label}</label>
       <Input
         id={input.id}
@@ -70,7 +108,7 @@ const App = () => {
         {renderProductList}
       </div>
       <Modal isOpen={isOpen} closeModal={closeModal} title="ADD A NEW PRODUCT">
-        <form className="space-y-3">
+        <form className="space-y-3" onSubmit={onSubmitHandler}>
           {renderFormInputList}
           <div className="flex items-center space-x-3 mt-4">
             <Button
@@ -82,7 +120,7 @@ const App = () => {
             <Button
               className="bg-gray-700 hover:bg-gray-600"
               width="w-full"
-              onClick={closeModal}
+              onClick={onCancel}
             >
               Cancel
             </Button>
