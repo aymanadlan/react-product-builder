@@ -31,7 +31,7 @@ const Modal = ({ isOpen, closeModal, title, children }: IProps) => {
               >
                 <DialogTitle
                   as="h3"
-                  className="text-base/7 font-medium text-white"
+                  className="text-base/7 font-medium text-black"
                 >
                   {title}
                 </DialogTitle>
