@@ -35,7 +35,7 @@ const ProductCard = ({ product }: IProps) => {
       <div className="flex items-center justify-between mt-auto">
         <span>{price}</span>
         <Image
-          imageURL={imageURL}
+          imageURL={category.imageURL}
           alt={category.name}
           className="w-10 h-10 rounded-full object-bottom"
         />

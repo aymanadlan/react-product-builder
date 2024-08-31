@@ -1,5 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { colors, formInputList, ProductList } from "./components/data";
+import {
+  categories,
+  colors,
+  formInputList,
+  ProductList,
+} from "./components/data";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
 import Button from "./components/ui/Button";
@@ -9,6 +14,7 @@ import { productValidation } from "./validation";
 import ErrorMessages from "./components/ErrorMessages";
 import CircleColor from "./components/CircleColor";
 import { v4 as uuid } from "uuid";
+import Select from "./components/ui/Select";
 
 const App = () => {
   const defaultProductObject = {
@@ -33,6 +39,7 @@ const App = () => {
   const [errors, setError] = useState(defaultErrorMessage);
   const [tempColors, setTempColor] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
   /* ---- HANDLER---- */
   const openModal = () => setIsOpen(true);
@@ -51,13 +58,6 @@ const App = () => {
     });
   };
 
-  // const onCancel = (event: FormEvent<HTMLFormElement>): void => {
-  //   event.preventDefault();
-
-  //   setProduct(defaultProductObject);
-  //   setError(defaultErrorMessage);
-  //   closeModal();
-  // };
   const onCancel = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault(); // Prevent default button behavior
 
@@ -79,8 +79,6 @@ const App = () => {
       price: price,
     });
 
-    //console.log(errors);
-
     //** Check if any properity has a value of "" & check if all properities have a value of "" */
     const hasErrorMessage =
       !Object.values(errors).some((value) => value === "") ||
@@ -95,7 +93,12 @@ const App = () => {
     }
 
     setProducts((prev) => [
-      { ...product, id: uuid(), colors: tempColors },
+      {
+        ...product,
+        id: uuid(),
+        colors: tempColors,
+        category: selectedCategory,
+      },
       ...prev,
     ]);
 
@@ -161,6 +164,12 @@ const App = () => {
       <Modal isOpen={isOpen} closeModal={closeModal} title="ADD A NEW PRODUCT">
         <form className="space-y-3" onSubmit={onSubmitHandler}>
           {renderFormInputList}
+
+          <Select
+            selected={selectedCategory}
+            setSelected={setSelectedCategory}
+          />
+
           <div className="flex flex-wrap items-center space-x-1">
             {renderProductColors}
           </div>

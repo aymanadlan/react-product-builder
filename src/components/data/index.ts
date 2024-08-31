@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { IFormInput, IProduct } from "../interfaces";
+import { ICategory } from "../interfaces/ICategory";
 
 export const ProductList: IProduct[] = [
   {
@@ -160,4 +161,25 @@ export const colors: string[] = [
   "#FF00FF",
   "#C0C0C0",
   "#800000",
+];
+
+export const categories: ICategory[] = [
+  {
+    id: uuid(),
+    name: "Electronics",
+    imageURL:
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: uuid(),
+    name: "Medicine",
+    imageURL:
+      "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?q=80&w=1928&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: uuid(),
+    name: "Bags",
+    imageURL:
+      "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?q=80&w=1928&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
 ];
