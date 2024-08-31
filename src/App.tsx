@@ -94,13 +94,21 @@ const App = () => {
       return;
     }
 
-    setProducts((prev) => [...prev, { ...product, id: uuid() }]);
+    setProducts((prev) => [
+      { ...product, id: uuid(), colors: tempColors },
+      ...prev,
+    ]);
 
-    console.log("SEND THIS PRODUCT TO OUR SERVER");
+    setProduct(defaultProductObject);
+    setTempColor([]);
+
+    closeModal();
+
+    console.log(products);
   };
 
   /* ---- RENDER---- */
-  const renderProductList = ProductList.map((product) => (
+  const renderProductList = products.map((product) => (
     <ProductCard key={product.id} product={product} />
   ));
   const renderProductColors = colors.map((color) => (
