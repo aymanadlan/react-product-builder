@@ -1,9 +1,9 @@
-//import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 import { IFormInput, IProduct } from "../interfaces";
 
 export const ProductList: IProduct[] = [
   {
-    id: "1", //uuid(),
+    id: uuid(),
     title: "Unspalsh+",
     description: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident
         atque distinctio ipsa totam non eum laudantium quos facilis molestias,
@@ -20,7 +20,7 @@ export const ProductList: IProduct[] = [
     },
   },
   {
-    id: "2", //uuid(),
+    id: uuid(),
     title: "Android Smartwatch",
     description: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident
         atque distinctio ipsa totam non eum laudantium quos facilis molestias,
@@ -37,7 +37,7 @@ export const ProductList: IProduct[] = [
     },
   },
   {
-    id: "3", //uuid(),
+    id: uuid(),
     title: "C D-X",
     description: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident
         atque distinctio ipsa totam non eum laudantium quos facilis molestias,
@@ -54,7 +54,7 @@ export const ProductList: IProduct[] = [
     },
   },
   {
-    id: "4", //uuid(),
+    id: uuid(),
     title: "Vitality Shot",
     description: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident
         atque distinctio ipsa totam non eum laudantium quos facilis molestias,
@@ -71,7 +71,7 @@ export const ProductList: IProduct[] = [
     },
   },
   {
-    id: "5", //uuid(),
+    id: uuid(),
     title: "Maui Moisture",
     description: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident
         atque distinctio ipsa totam non eum laudantium quos facilis molestias,
@@ -88,7 +88,7 @@ export const ProductList: IProduct[] = [
     },
   },
   {
-    id: "6", //uuid(),
+    id: uuid(),
     title: "Mitzie Organics",
     description: `Mitzie Organic Cleaning Products. Packaged in an amber glass bottle to lock in the vegan goodness.`,
     imageURL:
@@ -102,7 +102,7 @@ export const ProductList: IProduct[] = [
     },
   },
   {
-    id: "7", //uuid(),
+    id: uuid(),
     title: "Vinta.co",
     description: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident
         atque distinctio ipsa totam non eum laudantium quos facilis molestias,
@@ -119,7 +119,7 @@ export const ProductList: IProduct[] = [
     },
   },
   {
-    id: "8", //uuid(),
+    id: uuid(),
     title: "FOREST GIN",
     description: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident
         atque distinctio ipsa totam non eum laudantium quos facilis molestias,

@@ -8,6 +8,7 @@ import { IProduct } from "./components/interfaces";
 import { productValidation } from "./validation";
 import ErrorMessages from "./components/ErrorMessages";
 import CircleColor from "./components/CircleColor";
+import { v4 as uuid } from "uuid";
 
 const App = () => {
   const defaultProductObject = {
@@ -27,6 +28,7 @@ const App = () => {
     imageURL: "",
     price: "",
   };
+  const [products, setProducts] = useState<IProduct[]>(ProductList);
   const [product, setProduct] = useState<IProduct>(defaultProductObject);
   const [errors, setError] = useState(defaultErrorMessage);
   const [tempColors, setTempColor] = useState<string[]>([]);
@@ -91,6 +93,8 @@ const App = () => {
       setError(errors);
       return;
     }
+
+    setProducts((prev) => [...prev, { ...product, id: uuid() }]);
 
     console.log("SEND THIS PRODUCT TO OUR SERVER");
   };
