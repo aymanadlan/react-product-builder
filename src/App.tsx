@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { formInputList, ProductList } from "./components/data";
+import { colors, formInputList, ProductList } from "./components/data";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
 import Button from "./components/ui/Button";
@@ -7,6 +7,7 @@ import Input from "./components/ui/Input";
 import { IProduct } from "./components/interfaces";
 import { productValidation } from "./validation";
 import ErrorMessages from "./components/ErrorMessages";
+import CircleColor from "./components/CircleColor";
 
 const App = () => {
   const defaultProductObject = {
@@ -28,6 +29,7 @@ const App = () => {
   };
   const [product, setProduct] = useState<IProduct>(defaultProductObject);
   const [errors, setError] = useState(defaultErrorMessage);
+  const [tempColors, setTempColor] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
   /* ---- HANDLER---- */
@@ -47,11 +49,19 @@ const App = () => {
     });
   };
 
-  const onCancel = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
+  // const onCancel = (event: FormEvent<HTMLFormElement>): void => {
+  //   event.preventDefault();
+
+  //   setProduct(defaultProductObject);
+  //   setError(defaultErrorMessage);
+  //   closeModal();
+  // };
+  const onCancel = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault(); // Prevent default button behavior
 
     setProduct(defaultProductObject);
     setError(defaultErrorMessage);
+    setTempColor([]);
     closeModal();
   };
 
@@ -88,6 +98,19 @@ const App = () => {
   /* ---- RENDER---- */
   const renderProductList = ProductList.map((product) => (
     <ProductCard key={product.id} product={product} />
+  ));
+  const renderProductColors = colors.map((color) => (
+    <CircleColor
+      key={color}
+      color={color}
+      onClick={() => {
+        if (tempColors.includes(color)) {
+          setTempColor((prev) => prev.filter((item) => item !== color));
+          return;
+        }
+        setTempColor((prev) => [...prev, color]);
+      }}
+    />
   ));
 
   const renderFormInputList = formInputList.map((input) => (
@@ -126,6 +149,22 @@ const App = () => {
       <Modal isOpen={isOpen} closeModal={closeModal} title="ADD A NEW PRODUCT">
         <form className="space-y-3" onSubmit={onSubmitHandler}>
           {renderFormInputList}
+          <div className="flex flex-wrap items-center space-x-1">
+            {renderProductColors}
+          </div>
+
+          <div className="flex flex-wrap items-center space-x-1">
+            {tempColors.map((color) => (
+              <span
+                key={color}
+                className="p-1 mr-1 text-xs rounded-md text-white"
+                style={{ backgroundColor: color }}
+              >
+                {color}
+              </span>
+            ))}
+          </div>
+
           <div className="flex items-center space-x-3 mt-4">
             <Button
               className="bg-indigo-900 hover:bg-indigo-800"

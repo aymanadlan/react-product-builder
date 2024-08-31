@@ -148,3 +148,16 @@ export const formInputList: IFormInput[] = [
   { id: "image", name: "imageURL", label: "Product Image URL", type: "text" },
   { id: "price", name: "price", label: "Product Price", type: "text" },
 ];
+
+export const colors: string[] = [
+  "#FF0000",
+  "#00FF00",
+  "#000000",
+  "#FFFFFF",
+  "#0000FF",
+  "#FFFF00",
+  "#00FFFF",
+  "#FF00FF",
+  "#C0C0C0",
+  "#800000",
+];
