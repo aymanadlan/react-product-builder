@@ -139,8 +139,6 @@ const App = () => {
   const submitEditHandler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    console.log("productToEdit", productToEdit);
-
     const { title, description, imageURL, price } = productToEdit;
 
     const errors = productValidation({
@@ -151,8 +149,6 @@ const App = () => {
     });
 
     //** Check if any properity has a value of "" & check if all properities have a value of "" */
-    console.log("errors", errors);
-
     const hasErrorMessage =
       !Object.values(errors).some((value) => value === "") ||
       !Object.values(errors).every((value) => value === "");
@@ -165,7 +161,10 @@ const App = () => {
     console.log("productToEdit", productToEdit);
 
     const updatedProducts = [...products];
-    updatedProducts[productToEditIndex] = productToEdit;
+    updatedProducts[productToEditIndex] = {
+      ...productToEdit,
+      colors: tempColors.concat(productToEdit.colors),
+    };
     setProducts(updatedProducts);
 
     setProductToEdit(defaultProductObject);
@@ -193,9 +192,11 @@ const App = () => {
       onClick={() => {
         if (tempColors.includes(color)) {
           setTempColor((prev) => prev.filter((item) => item !== color));
-          return;
+        } else if (productToEdit.colors.includes(color)) {
+          setTempColor((prev) => prev.filter((item) => item !== color));
+        } else {
+          setTempColor((prev) => [...prev, color]);
         }
-        setTempColor((prev) => [...prev, color]);
       }}
     />
   ));

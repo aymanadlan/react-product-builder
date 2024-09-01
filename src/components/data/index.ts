@@ -13,7 +13,7 @@ export const ProductList: IProduct[] = [
     imageURL:
       "https://plus.unsplash.com/premium_photo-1675896084254-dcb626387e1e?q=80&w=1870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "500",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#0000FF", "#FFFF00", "#00FFFF"],
     category: {
       name: "medicine",
       imageURL:
@@ -30,7 +30,7 @@ export const ProductList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "500",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#0000FF", "#FFFF00", "#00FFFF"],
     category: {
       name: "medicine",
       imageURL:
@@ -47,7 +47,7 @@ export const ProductList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "500",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#0000FF", "#FFFF00", "#00FFFF"],
     category: {
       name: "medicine",
       imageURL:
@@ -64,7 +64,7 @@ export const ProductList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1524638067-feba7e8ed70f?q=80&w=1536&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "500",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#0000FF", "#FFFF00", "#00FFFF"],
     category: {
       name: "medicine",
       imageURL:
@@ -81,7 +81,7 @@ export const ProductList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "500",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#0000FF", "#FFFF00", "#00FFFF"],
     category: {
       name: "medicine",
       imageURL:
@@ -95,7 +95,7 @@ export const ProductList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1549049950-48d5887197a0?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "500",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#0000FF", "#FFFF00", "#00FFFF"],
     category: {
       name: "medicine",
       imageURL:
@@ -112,7 +112,7 @@ export const ProductList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?q=80&w=1928&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "500",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#0000FF", "#FFFF00", "#00FFFF"],
     category: {
       name: "medicine",
       imageURL:
@@ -129,7 +129,7 @@ export const ProductList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1530914547840-346c183410de?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "500",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#0000FF", "#FFFF00", "#00FFFF"],
     category: {
       name: "medicine",
       imageURL:
