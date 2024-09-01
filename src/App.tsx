@@ -117,8 +117,7 @@ const App = () => {
     closeConfirmModal();
     toast("Product has been deleted", {
       style: {
-        backgroundColor: "darkgrey",
-        color: "white",
+        color: "teal",
       },
     });
   };
@@ -277,7 +276,7 @@ const App = () => {
       <div className="my-10">
         <div className="flex justify-center">
           <Button
-            className="w-32  mb-4 bg-teal-900 hover:bg-teal-800"
+            className="w-32  mb-4 bg-teal-900 hover:bg-teal-800 mt-8"
             onClick={openModal}
           >
             Build a product
