@@ -47,7 +47,7 @@ export const productValidation = (product: {
   if (
     !product.description.trim() ||
     product.description.length < 10 ||
-    product.description.length > 80
+    product.description.length > 380
   ) {
     errors.description =
       "Product Description must be between 10 and 80 characters!";

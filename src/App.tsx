@@ -39,13 +39,14 @@ const App = () => {
   const [product, setProduct] = useState<IProduct>(defaultProductObject);
   const [productToEdit, setProductToEdit] =
     useState<IProduct>(defaultProductObject);
+  const [productToEditIndex, setProductToEditIndex] = useState<number>(0);
   const [errors, setError] = useState(defaultErrorMessage);
   const [tempColors, setTempColor] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
-  console.log("Product to edit : ", productToEdit);
+  console.log(productToEditIndex);
 
   /* ---- HANDLER---- */
   const openModal = () => setIsOpen(true);
@@ -82,6 +83,8 @@ const App = () => {
   };
 
   const onCancel = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    console.log("canceled");
+
     event.preventDefault(); // Prevent default button behavior
 
     setProduct(defaultProductObject);
@@ -133,8 +136,10 @@ const App = () => {
     console.log(products);
   };
 
-  const onSubmitEditHandler = (event: FormEvent<HTMLFormElement>): void => {
+  const submitEditHandler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+
+    console.log("productToEdit", productToEdit);
 
     const { title, description, imageURL, price } = productToEdit;
 
@@ -146,6 +151,8 @@ const App = () => {
     });
 
     //** Check if any properity has a value of "" & check if all properities have a value of "" */
+    console.log("errors", errors);
+
     const hasErrorMessage =
       !Object.values(errors).some((value) => value === "") ||
       !Object.values(errors).every((value) => value === "");
@@ -155,31 +162,28 @@ const App = () => {
       return;
     }
 
-    // setProducts((prev) => [
-    //   {
-    //     ...product,
-    //     id: uuid(),
-    //     colors: tempColors,
-    //     category: selectedCategory,
-    //   },
-    //   ...prev,
-    // ]);
+    console.log("productToEdit", productToEdit);
+
+    const updatedProducts = [...products];
+    updatedProducts[productToEditIndex] = productToEdit;
+    setProducts(updatedProducts);
 
     setProductToEdit(defaultProductObject);
     setTempColor([]);
-
-    closeModal();
+    closeEditModal();
 
     console.log(products);
   };
 
   /* ---- RENDER---- */
-  const renderProductList = products.map((product) => (
+  const renderProductList = products.map((product, index) => (
     <ProductCard
       key={product.id}
       product={product}
       setProductToEdit={setProductToEdit}
       openEditModal={openEditModal}
+      index={index}
+      setProductToEditIndex={setProductToEditIndex}
     />
   ));
   const renderProductColors = colors.map((color) => (
@@ -203,14 +207,19 @@ const App = () => {
     name: TProductInput
   ) => {
     return (
-      <div className="flex flex-col ">
-        <label htmlFor={"title"}>{label}</label>
+      <div className="flex flex-col">
+        <label
+          htmlFor={id}
+          className="mb-[2px] text-sm font-medium text-gray-700"
+        >
+          {label}
+        </label>
         <Input
           id={id}
           type={type}
           name={name}
           value={productToEdit[name]}
-          onChange={onChangeHandler}
+          onChange={onChangeEditHandler}
         />
         <ErrorMessages message={errors[name]} />
       </div>
@@ -299,19 +308,42 @@ const App = () => {
         closeModal={closeEditModal}
         title="EDIT PRODUCT"
       >
-        <form className="space-y-3" onSubmit={onSubmitEditHandler}>
-          {renderProductEditWithErrorMessage()}
+        <form className="space-y-3" onSubmit={submitEditHandler}>
+          {renderProductEditWithErrorMessage(
+            "title",
+            "Product Title",
+            "text",
+            "title"
+          )}
+          {renderProductEditWithErrorMessage(
+            "description",
+            "Product Description",
+            "text",
+            "description"
+          )}
+          {renderProductEditWithErrorMessage(
+            "imageURL",
+            "Product Image URL",
+            "text",
+            "imageURL"
+          )}
+          {renderProductEditWithErrorMessage(
+            "price",
+            "Product Price",
+            "text",
+            "price"
+          )}
           {/* <Select
             selected={selectedCategory}
             setSelected={setSelectedCategory}
           /> */}
 
-          {/* <div className="flex flex-wrap items-center space-x-1">
+          <div className="flex flex-wrap items-center space-x-1">
             {renderProductColors}
           </div>
 
           <div className="flex flex-wrap items-center space-x-1">
-            {tempColors.map((color) => (
+            {tempColors.concat(productToEdit.colors).map((color) => (
               <span
                 key={color}
                 className="p-1 mr-1 text-xs rounded-md text-white"
@@ -320,7 +352,7 @@ const App = () => {
                 {color}
               </span>
             ))}
-          </div> */}
+          </div>
 
           <div className="flex items-center space-x-3 mt-4">
             <Button
