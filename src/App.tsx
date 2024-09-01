@@ -16,6 +16,7 @@ import CircleColor from "./components/CircleColor";
 import { v4 as uuid } from "uuid";
 import Select from "./components/ui/Select";
 import { TProductInput } from "./components/types";
+import toast, { Toaster } from "react-hot-toast";
 
 const App = () => {
   const defaultProductObject = {
@@ -44,6 +45,7 @@ const App = () => {
   const [tempColors, setTempColor] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [isOpenConfirmModel, setIsOpenConfirmModel] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
   console.log(productToEditIndex);
@@ -51,6 +53,9 @@ const App = () => {
   /* ---- HANDLER---- */
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+
+  const openConfirmModal = () => setIsOpenConfirmModel(true);
+  const closeConfirmModal = () => setIsOpenConfirmModel(false);
 
   const openEditModal = () => setIsOpenEditModal(true);
   const closeEditModal = () => setIsOpenEditModal(false);
@@ -93,7 +98,32 @@ const App = () => {
     closeModal();
   };
 
-  const onSubmitHandler = (event: FormEvent<HTMLFormElement>): void => {
+  const onCancelEdit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    console.log("Edit canceled");
+
+    event.preventDefault(); // Prevent default button behavior
+
+    setError(defaultErrorMessage);
+    setTempColor([]);
+    closeEditModal();
+  };
+
+  const removeProductHandler = () => {
+    console.log("Product ID", productToEdit.id);
+    const filtered = products.filter(
+      (product) => product.id !== productToEdit.id
+    );
+    setProducts(filtered);
+    closeConfirmModal();
+    toast("Product has been deleted", {
+      style: {
+        backgroundColor: "darkgrey",
+        color: "white",
+      },
+    });
+  };
+
+  const SubmitHandler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     const { title, description, imageURL, price } = product;
@@ -181,6 +211,7 @@ const App = () => {
       product={product}
       setProductToEdit={setProductToEdit}
       openEditModal={openEditModal}
+      openConfirmModal={openConfirmModal}
       index={index}
       setProductToEditIndex={setProductToEditIndex}
     />
@@ -246,7 +277,7 @@ const App = () => {
       <div className="my-10">
         <div className="flex justify-center">
           <Button
-            className="w-32  mb-4 bg-indigo-900 hover:bg-indigo-800"
+            className="w-32  mb-4 bg-teal-900 hover:bg-teal-800"
             onClick={openModal}
           >
             Build a product
@@ -268,7 +299,7 @@ const App = () => {
           closeModal={closeModal}
           title="ADD A NEW PRODUCT"
         >
-          <form className="space-y-3" onSubmit={onSubmitHandler}>
+          <form className="space-y-3" onSubmit={SubmitHandler}>
             {renderFormInputList}
 
             <Select
@@ -293,14 +324,11 @@ const App = () => {
             </div>
 
             <div className="flex items-center space-x-3 mt-4">
-              <Button
-                className="bg-indigo-900 hover:bg-indigo-800"
-                width="w-full"
-              >
+              <Button className="bg-teal-900 hover:bg-teal-800" width="w-full">
                 Submit
               </Button>
               <Button
-                className="bg-gray-700 hover:bg-gray-600"
+                className="bg-gray-800 hover:bg-gray-600"
                 width="w-full"
                 onClick={onCancel}
               >
@@ -365,23 +393,43 @@ const App = () => {
             </div>
 
             <div className="flex items-center space-x-3 mt-4">
-              <Button
-                className="bg-indigo-900 hover:bg-indigo-800"
-                width="w-full"
-              >
+              <Button className="bg-teal-900 hover:bg-teal-800" width="w-full">
                 Submit
               </Button>
               <Button
-                className="bg-gray-700 hover:bg-gray-600"
+                className="bg-gray-800 hover:bg-gray-600"
                 width="w-full"
-                onClick={onCancel}
+                onClick={onCancelEdit}
               >
                 Cancel
               </Button>
             </div>
           </form>
         </Modal>
+
+        <Modal
+          isOpen={isOpenConfirmModel}
+          closeModal={closeConfirmModal}
+          title="Are you sure you want to remove this product from your store?"
+        >
+          <div className="flex items-center space-x-3">
+            <Button
+              className="bg-red-900 hover:bg-red-800"
+              onClick={removeProductHandler}
+            >
+              Yes,Remove
+            </Button>
+            <Button
+              className="bg-gray-800 hover:bg-gray-600"
+              onClick={closeConfirmModal}
+            >
+              Cancel
+            </Button>
+          </div>
+        </Modal>
       </div>
+
+      <Toaster />
     </main>
   );
 };
